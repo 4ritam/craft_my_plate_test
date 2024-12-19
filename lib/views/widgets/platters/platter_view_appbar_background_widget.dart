@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/instance_manager.dart';
+
+import '../../../controllers/platter_controller.dart';
 
 class PlattersViewAppbarBackground extends StatelessWidget {
-  final String imagePath;
-
   const PlattersViewAppbarBackground({
     super.key,
-    required this.imagePath,
   });
 
   @override
   Widget build(BuildContext context) {
+    final eventType = Get.find<PlatterController>().eventType;
     return Stack(
       fit: StackFit.expand,
       children: [
         Image.asset(
-          imagePath,
+          "assets/images/background/${eventType}_background.png",
           alignment: Alignment.topCenter,
           fit: BoxFit.cover,
           filterQuality: FilterQuality.high,

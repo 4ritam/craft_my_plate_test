@@ -1,0 +1,4 @@
+enum Service {
+  delivery,
+  catering,
+}

@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-import '../../platters_view.dart';
+import '../../../controllers/platter_controller.dart';
+import '../../../models/enums/service_enum.dart';
 import 'service_option_widget.dart';
 
 class ServiceTabBarWidget extends StatelessWidget {
   ServiceTabBarWidget({
     super.key,
-    required this.currentSelectedTab,
   });
-
-  final CurrentSelectedTab currentSelectedTab;
 
   final Widget inactiveGap = SizedBox(
     width: 11.w,
@@ -37,49 +36,72 @@ class ServiceTabBarWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        currentSelectedTab == CurrentSelectedTab.delivery
-            ? activeGapLeft
-            : inactiveGap,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ServiceOptionWidget(
-                title: 'Bulk Food Delivery',
-                isActive: currentSelectedTab == CurrentSelectedTab.delivery,
-              ),
-              Container(
-                height: 8.h,
-                color: currentSelectedTab == CurrentSelectedTab.delivery
-                    ? Colors.white
-                    : Colors.transparent,
-              ),
-            ],
-          ),
-        ),
-        currentSelectedTab == CurrentSelectedTab.delivery
-            ? activeGapRight
-            : activeGapLeft,
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ServiceOptionWidget(
-                title: 'Catering Services',
-                isActive: currentSelectedTab == CurrentSelectedTab.catering,
-              ),
-              Container(
-                height: 8.h,
-                color: currentSelectedTab == CurrentSelectedTab.catering
-                    ? Colors.white
-                    : Colors.transparent,
-              ),
-            ],
-          ),
-        ),
-        currentSelectedTab == CurrentSelectedTab.delivery
-            ? inactiveGap
-            : activeGapRight,
+        Obx(() {
+          return Get.find<PlatterController>().selectedService.value ==
+                  Service.delivery
+              ? activeGapLeft
+              : inactiveGap;
+        }),
+        Obx(() {
+          return Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ServiceOptionWidget(
+                  title: 'Bulk Food Delivery',
+                  isActive:
+                      Get.find<PlatterController>().selectedService.value ==
+                          Service.delivery,
+                  onSelected: () => Get.find<PlatterController>()
+                      .changeService(Service.delivery),
+                ),
+                Container(
+                  height: 8.h,
+                  color: Get.find<PlatterController>().selectedService.value ==
+                          Service.delivery
+                      ? Colors.white
+                      : Colors.transparent,
+                ),
+              ],
+            ),
+          );
+        }),
+        Obx(() {
+          return Get.find<PlatterController>().selectedService.value ==
+                  Service.delivery
+              ? activeGapRight
+              : activeGapLeft;
+        }),
+        Obx(() {
+          return Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ServiceOptionWidget(
+                  title: 'Catering Services',
+                  isActive:
+                      Get.find<PlatterController>().selectedService.value ==
+                          Service.catering,
+                  onSelected: () => Get.find<PlatterController>()
+                      .changeService(Service.catering),
+                ),
+                Container(
+                  height: 8.h,
+                  color: Get.find<PlatterController>().selectedService.value ==
+                          Service.catering
+                      ? Colors.white
+                      : Colors.transparent,
+                ),
+              ],
+            ),
+          );
+        }),
+        Obx(() {
+          return Get.find<PlatterController>().selectedService.value ==
+                  Service.delivery
+              ? inactiveGap
+              : activeGapRight;
+        }),
       ],
     );
   }

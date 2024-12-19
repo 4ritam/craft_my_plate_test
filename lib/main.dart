@@ -1,11 +1,13 @@
-import 'package:craft_my_plate_test/config/app_config.dart';
-import 'package:craft_my_plate_test/config/util_config.dart';
+import 'package:craft_my_plate_test/controllers/platter_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import 'config/app_config.dart';
 import 'views/platters_view.dart';
 
 void main() {
+  Get.put(PlatterController());
   runApp(const MainApp());
 }
 
@@ -17,10 +19,13 @@ class MainApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 832),
       minTextAdapt: true,
-      builder: (_, child) => MaterialApp(
+      builder: (_, child) => GetMaterialApp(
         title: AppConfig.appName,
         debugShowCheckedModeBanner: false,
-        home: PlattersView(platterType: UtilConfig.currentPlatterType),
+        theme: ThemeData(
+          scaffoldBackgroundColor: Color(0xFFF5F6FB),
+        ),
+        home: PlattersView(),
       ),
     );
   }

@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   flutter_screenutil: ^5.9.3
   google_fonts: ^6.2.1
+  flutter_svg: ^2.0.16
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_test:
@@ -22,3 +24,6 @@ flutter:
 
   assets:
     - assets/images/background/
+    - assets/images/platters/
+    - assets/images/categories/
+    - assets/svg/
